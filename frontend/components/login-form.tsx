@@ -1,0 +1,155 @@
+"use client"
+
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
+
+export function LoginForm() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPw, setShowPw] = useState(false)
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+
+  const errors: Record<string, string> = {}
+  if (touched.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errors.email = "Ingresa un correo válido"
+  if (touched.password && password.length < 1)
+    errors.password = "Ingresa tu contraseña"
+
+  function borderClass(field: string) {
+    if (errors[field])
+      return "border-[#E63946] focus:border-[#E63946] focus:shadow-[0_0_0_3px_rgba(230,57,70,0.1)]"
+    return "border-[#e0e0e0] focus:border-[#E63946] focus:shadow-[0_0_0_3px_rgba(230,57,70,0.1)]"
+  }
+
+  const inputBase =
+    "w-full rounded-[10px] border-[1.5px] bg-white px-4 py-3 font-sans text-[15px] text-hanzi-text outline-none transition-all duration-200 placeholder:text-[#aaa]"
+
+  function handleSubmit() {
+    setTouched({ email: true, password: true })
+  }
+
+  return (
+    <div className="flex w-full max-w-[420px] flex-col gap-6">
+      {/* Mobile logo */}
+      <div className="flex items-center gap-2 md:hidden">
+        <span className="font-serif text-3xl font-bold text-hanzi-red">汉字</span>
+        <span className="font-[var(--font-display)] text-xl font-bold text-hanzi-ink">hanzi</span>
+      </div>
+
+      <div>
+        <h1
+          className="text-hanzi-ink"
+          style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: 26 }}
+        >
+          Bienvenido de vuelta
+        </h1>
+        <p className="mt-1.5 font-sans text-[15px] text-hanzi-text-muted">
+          Continúa donde lo dejaste.
+        </p>
+      </div>
+
+      {/* Google OAuth button */}
+      <button className="flex w-full items-center justify-center gap-2.5 rounded-[12px] border-[1.5px] border-[#e0e0e0] bg-white py-3.5 font-sans text-[15px] font-semibold text-hanzi-text transition-colors duration-200 hover:bg-[#f5f5f5]">
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+        </svg>
+        Continuar con Google
+      </button>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="h-px flex-1 bg-[#e0e0e0]" />
+        <span className="font-sans text-sm text-[#aaa]">o</span>
+        <div className="h-px flex-1 bg-[#e0e0e0]" />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {/* Email */}
+        <div>
+          <label
+            htmlFor="login-email"
+            className="mb-1.5 block font-sans text-sm font-medium text-hanzi-text"
+          >
+            Correo electrónico
+          </label>
+          <input
+            id="login-email"
+            type="email"
+            placeholder="sofia@ejemplo.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+            className={`${inputBase} ${borderClass("email")}`}
+          />
+          {errors.email && (
+            <p className="mt-1 font-sans text-xs text-[#E63946]">{errors.email}</p>
+          )}
+        </div>
+
+        {/* Password */}
+        <div>
+          <div className="mb-1.5 flex items-center justify-between">
+            <label
+              htmlFor="login-pw"
+              className="block font-sans text-sm font-medium text-hanzi-text"
+            >
+              Contraseña
+            </label>
+            <a
+              href="/forgot-password"
+              className="font-sans text-[13px] text-hanzi-red underline-offset-2 hover:underline"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+          <div className="relative">
+            <input
+              id="login-pw"
+              type={showPw ? "text" : "password"}
+              placeholder="Tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, password: true }))}
+              className={`${inputBase} pr-11 ${borderClass("password")}`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw(!showPw)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#aaa] transition-colors hover:text-hanzi-text"
+              aria-label={showPw ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
+              {showPw ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="mt-1 font-sans text-xs text-[#E63946]">{errors.password}</p>
+          )}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <button
+        onClick={handleSubmit}
+        className="w-full rounded-[12px] bg-hanzi-red py-3.5 text-center text-white transition-all duration-200 hover:bg-[#C1121F] hover:scale-[1.01] active:scale-[0.99]"
+        style={{ fontFamily: "'Sora', sans-serif", fontWeight: 600, fontSize: 16 }}
+      >
+        Iniciar sesión
+      </button>
+
+      {/* Bottom link */}
+      <p className="text-center font-sans text-sm text-hanzi-text-muted">
+        {"¿No tienes cuenta? "}
+        <a
+          href="/register"
+          className="text-hanzi-red underline-offset-2 hover:underline"
+          style={{ fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
+        >
+          Regístrate gratis
+        </a>
+      </p>
+    </div>
+  )
+}
