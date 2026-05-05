@@ -21,18 +21,21 @@ const cards = [
 export function DemoInteractivo() {
   const [current, setCurrent] = useState(0)
   const [flipped, setFlipped] = useState(false)
+  const [transitionEnabled, setTransitionEnabled] = useState(true)
   const [complete, setComplete] = useState(false)
 
   function handleAnswer(knewIt: boolean) {
     console.log('Card result:', knewIt)
-    setFlipped(false)
+    setTransitionEnabled(false)
     setTimeout(() => {
+      setFlipped(false)
       if (current + 1 >= cards.length) {
         setComplete(true)
       } else {
         setCurrent((c) => c + 1)
       }
-    }, 250)
+      setTimeout(() => setTransitionEnabled(true), 50)
+    }, 0)
   }
 
   function handleReset() {
@@ -137,9 +140,10 @@ export function DemoInteractivo() {
                 onClick={() => setFlipped(true)}
               >
                 <div
-                  className="relative h-full w-full transition-transform duration-500"
+                  className="relative h-full w-full"
                   style={{
                     transformStyle: "preserve-3d",
+                    transition: transitionEnabled ? "transform 0.5s ease" : "none",
                     transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
                   }}
                 >
