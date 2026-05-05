@@ -24,7 +24,6 @@ export function DemoInteractivo() {
   const [complete, setComplete] = useState(false)
 
   function handleAnswer(knewIt: boolean) {
-    // log knewIt for future FSRS integration
     console.log('Card result:', knewIt)
     setFlipped(false)
     setTimeout(() => {
@@ -33,7 +32,7 @@ export function DemoInteractivo() {
       } else {
         setCurrent((c) => c + 1)
       }
-    }, 500)
+    }, 250)
   }
 
   function handleReset() {
