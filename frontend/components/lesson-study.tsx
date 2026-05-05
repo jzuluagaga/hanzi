@@ -26,6 +26,7 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
   const [isLoading, setIsLoading] = useState(true)
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
+  const [transitionEnabled, setTransitionEnabled] = useState(true)
   const [done, setDone] = useState(false)
   const [alDia, setAlDia] = useState(false)
 
@@ -81,12 +82,16 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
       await registrarRespuesta(card.id, recordo, token)
     } catch {}
 
-    setFlipped(false)
-    if (index + 1 >= cartas.length) {
-      setTimeout(() => setDone(true), 520)
-    } else {
-      setTimeout(() => setIndex((i) => i + 1), 520)
-    }
+    setTransitionEnabled(false)
+    setTimeout(() => {
+      setFlipped(false)
+      if (index + 1 >= cartas.length) {
+        setDone(true)
+      } else {
+        setIndex((i) => i + 1)
+      }
+      setTimeout(() => setTransitionEnabled(true), 50)
+    }, 0)
   }
 
   function handleReset() {
@@ -242,7 +247,7 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
                 className="relative h-full w-full"
                 style={{
                   transformStyle: "preserve-3d",
-                  transition: "transform 0.5s ease",
+                  transition: transitionEnabled ? "transform 0.5s ease" : "none",
                   transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
                 }}
               >
