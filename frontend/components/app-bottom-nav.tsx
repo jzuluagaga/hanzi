@@ -1,13 +1,12 @@
 "use client"
 
-import { BookOpen, Target, BarChart2, Settings } from "lucide-react"
+import { BookOpen, Target, User } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 const navItems = [
-  { icon: BookOpen, href: "/app", label: "Lecciones" },
-  { icon: Target, href: "/app/hsk", label: "HSK" },
-  { icon: BarChart2, href: "/app/progreso", label: "Progreso" },
-  { icon: Settings, href: "/app/ajustes", label: "Ajustes" },
+  { icon: BookOpen, href: "/app",          label: "Lecciones" },
+  { icon: Target,   href: "/app/hsk",      label: "HSK" },
+  { icon: User,     href: "/app/profile",  label: "Perfil" },
 ]
 
 export function AppBottomNav() {
@@ -19,7 +18,7 @@ export function AppBottomNav() {
       style={{ backgroundColor: "#1A1A2E", borderColor: "rgba(255,255,255,0.08)" }}
     >
       {navItems.map(({ icon: Icon, href, label }) => {
-        const active = pathname === href
+        const active = href === "/app" ? pathname === href : pathname.startsWith(href)
         return (
           <a
             key={href}

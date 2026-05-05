@@ -3,6 +3,13 @@
 import { useState } from "react"
 import { X, Check } from "lucide-react"
 
+function hanziSize(text: string): string {
+  const len = text.length
+  if (len <= 4) return "6rem"     // text-8xl
+  if (len <= 8) return "3.75rem"  // text-6xl
+  return "2.25rem"                // text-4xl
+}
+
 const cards = [
   { hanzi: "你好", pinyin: "nǐ hǎo", es: "Hola" },
   { hanzi: "谢谢", pinyin: "xiè xie", es: "Gracias" },
@@ -16,13 +23,17 @@ export function DemoInteractivo() {
   const [flipped, setFlipped] = useState(false)
   const [complete, setComplete] = useState(false)
 
-  function handleAnswer() {
-    if (current + 1 >= cards.length) {
-      setComplete(true)
-    } else {
-      setCurrent((c) => c + 1)
-      setFlipped(false)
-    }
+  function handleAnswer(knewIt: boolean) {
+    // log knewIt for future FSRS integration
+    console.log('Card result:', knewIt)
+    setFlipped(false)
+    setTimeout(() => {
+      if (current + 1 >= cards.length) {
+        setComplete(true)
+      } else {
+        setCurrent((c) => c + 1)
+      }
+    }, 500)
   }
 
   function handleReset() {
@@ -32,7 +43,7 @@ export function DemoInteractivo() {
   }
 
   return (
-    <section className="px-6 py-24 lg:py-32" style={{ backgroundColor: "#1A1A2E" }}>
+    <section className="px-6 py-16 lg:py-24" style={{ backgroundColor: "#1A1A2E" }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -143,8 +154,16 @@ export function DemoInteractivo() {
                     }}
                   >
                     <span
-                      className="absolute right-4 top-4 text-xs"
-                      style={{ fontFamily: "'DM Sans', sans-serif", color: "#aaa" }}
+                      className="absolute right-4 top-4"
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontSize: 13,
+                        color: "#888",
+                        backgroundColor: "rgba(230,57,70,0.08)",
+                        border: "1px solid rgba(230,57,70,0.15)",
+                        borderRadius: "9999px",
+                        padding: "4px 12px",
+                      }}
                     >
                       Toca para ver
                     </span>
@@ -153,7 +172,7 @@ export function DemoInteractivo() {
                       style={{
                         fontFamily: "'Noto Serif SC', serif",
                         fontWeight: 800,
-                        fontSize: "96px",
+                        fontSize: hanziSize(cards[current].hanzi),
                         color: "#1A1A2E",
                       }}
                     >
@@ -208,7 +227,7 @@ export function DemoInteractivo() {
               >
                 {/* No lo sabía */}
                 <button
-                  onClick={handleAnswer}
+                  onClick={() => handleAnswer(false)}
                   className="group flex flex-1 items-center justify-center gap-2 rounded-xl border py-3 text-sm font-semibold transition-all duration-150"
                   style={{
                     backgroundColor: "rgba(230,57,70,0.15)",
@@ -233,7 +252,7 @@ export function DemoInteractivo() {
 
                 {/* ¡Lo supe! */}
                 <button
-                  onClick={handleAnswer}
+                  onClick={() => handleAnswer(true)}
                   className="group flex flex-1 items-center justify-center gap-2 rounded-xl border py-3 text-sm font-semibold transition-all duration-150"
                   style={{
                     backgroundColor: "rgba(6,214,160,0.15)",

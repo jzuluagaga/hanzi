@@ -17,6 +17,19 @@ public interface CartaRepository extends JpaRepository<Carta, Long> {
 
     Optional<Carta> findByHanziAndLeccionId(String hanzi, Long leccionId);
 
-    List<Carta> findByHskNivel(Integer hskNivel);
-}
+    Optional<Carta> findByHanziAndHskNivel(String hanzi, Integer hskNivel);
 
+    List<Carta> findByHskNivel(Integer hskNivel);
+
+    List<Carta> findByHskNivelAndTipoOrderByIdAsc(Integer hskNivel, String tipo);
+
+    List<Carta> findByHskNivelAndTipoAndCategoriaOrderByIdAsc(Integer hskNivel, String tipo, String categoria);
+
+    int countByLeccionId(Long leccionId);
+
+    int countByHskNivelAndTipoAndCategoria(Integer hskNivel, String tipo, String categoria);
+
+    List<Carta> findByLeccionIdOrderByIdAsc(Long leccionId);
+
+    void deleteByLeccionId(Long leccionId);
+}

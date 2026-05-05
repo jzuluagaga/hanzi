@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="bg-hanzi-ink px-6 py-12">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 md:flex-row md:justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <span className="font-serif text-2xl font-bold text-hanzi-red">汉字</span>
           <span className="font-[var(--font-display)] text-lg font-bold text-white">
             hanzi

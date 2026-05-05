@@ -1,31 +1,15 @@
 import { ArrowRight } from "lucide-react"
 
 const lessons = [
-  {
-    number: 1,
-    title: "Saludos y presentaciones",
-    words: 150,
-  },
-  {
-    number: 2,
-    title: "Familia y personas",
-    words: 150,
-  },
-  {
-    number: 3,
-    title: "Números y fechas",
-    words: 150,
-  },
-  {
-    number: 4,
-    title: "Comida y bebida",
-    words: 150,
-  },
+  { number: 1, title: "Saludos y presentaciones" },
+  { number: 2, title: "Familia y personas" },
+  { number: 3, title: "Números y fechas" },
+  { number: 4, title: "Comida y bebida" },
 ]
 
 export function Lecciones() {
   return (
-    <section id="lecciones" className="bg-hanzi-paper px-6 py-24 lg:py-32">
+    <section id="lecciones" className="bg-hanzi-paper px-6 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl">
         {/* Title */}
         <div className="mb-14 text-center">
@@ -48,7 +32,6 @@ export function Lecciones() {
               className="group flex min-w-[260px] cursor-pointer flex-col justify-between rounded-2xl border-t-4 border-hanzi-red bg-card p-6 shadow-[0_4px_24px_rgba(230,57,70,0.07)] transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(230,57,70,0.13)]"
               style={{
                 animation: `fade-up 0.5s ease ${i * 0.1}s forwards`,
-                opacity: i === 0 ? undefined : 0,
               }}
             >
               {/* Lesson number */}
@@ -70,15 +53,9 @@ export function Lecciones() {
               </div>
 
               {/* Bottom row */}
-              <div className="mt-6 flex items-center justify-between">
-                <span
-                  className="inline-block rounded-full bg-hanzi-ink px-3 py-1 text-xs text-primary-foreground"
-                  style={{ fontFamily: "'Sora', sans-serif" }}
-                >
-                  {lesson.words + " palabras"}
-                </span>
+              <div className="mt-6 flex items-center justify-end">
                 <a
-                  href={`/leccion/${lesson.number}`}
+                  href="/register"
                   className="flex items-center gap-1 text-sm text-hanzi-red transition-all group-hover:underline"
                   style={{ fontFamily: "'Sora', sans-serif" }}
                 >

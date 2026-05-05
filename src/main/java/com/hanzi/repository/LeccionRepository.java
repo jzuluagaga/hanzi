@@ -13,5 +13,7 @@ public interface LeccionRepository extends JpaRepository<Leccion, Long> {
     List<Leccion> findAllByOrderByOrdenAsc();
 
     Optional<Leccion> findByNombre(String nombre);
+
+    Optional<Leccion> findTopByOrderByOrdenDesc();
 }
 

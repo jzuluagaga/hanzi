@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, Loader2 } from "lucide-react"
+import { requestPasswordReset } from "@/lib/api"
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("")
   const [touched, setTouched] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const error =
     touched && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -20,9 +22,18 @@ export function ForgotPasswordForm() {
   const inputBase =
     "w-full rounded-[10px] border-[1.5px] bg-white px-4 py-3 font-sans text-[15px] text-hanzi-text outline-none transition-all duration-200 placeholder:text-[#aaa]"
 
-  function handleSubmit() {
+  async function handleSubmit() {
     setTouched(true)
-    if (!error && email) setSubmitted(true)
+    if (error || !email) return
+    setIsSubmitting(true)
+    try {
+      await requestPasswordReset(email)
+    } catch {
+      // Silenciar error — no revelar si el email existe o no
+    } finally {
+      setIsSubmitting(false)
+      setSubmitted(true)
+    }
   }
 
   return (
@@ -93,10 +104,11 @@ export function ForgotPasswordForm() {
 
           <button
             onClick={handleSubmit}
-            className="w-full rounded-[12px] bg-hanzi-red py-3.5 text-center text-white transition-all duration-200 hover:bg-[#C1121F] hover:scale-[1.01] active:scale-[0.99]"
+            disabled={isSubmitting}
+            className="w-full rounded-[12px] bg-hanzi-red py-3.5 text-center text-white transition-all duration-200 hover:bg-[#C1121F] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ fontFamily: "'Sora', sans-serif", fontWeight: 600, fontSize: 16 }}
           >
-            Enviar enlace
+            {isSubmitting ? <Loader2 className="animate-spin mx-auto" size={20} /> : "Enviar enlace"}
           </button>
 
           <a

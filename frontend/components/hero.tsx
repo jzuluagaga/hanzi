@@ -27,11 +27,11 @@ export function Hero() {
               color: "#1A1A2E",
             }}
           >
-            {"Aprende vocabulario y prepárate para exámenes, así de fácil."}
+            {"Aprende vocabulario de manera activa y con repasos dinámicos."}
           </h1>
 
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-hanzi-text-muted">
-            {"Estudia el vocabulario oficial del HSK1 con flashcards inteligentes, todo en español. Sin configurar nada, sin perder tiempo."}
+            {"Comienza hoy y prepárate para tu próximo examen."}
           </p>
 
           {/* Buttons */}
@@ -60,7 +60,7 @@ export function Hero() {
               {"nǐ hǎo"}
             </p>
             <p className="mt-2 text-center text-lg text-hanzi-text-muted">
-              {"Hola / Buenos días"}
+              {"Hola"}
             </p>
             {/* small jade success dot */}
             <span className="absolute right-4 top-4 inline-block h-3 w-3 rounded-full bg-hanzi-jade" aria-hidden="true" />

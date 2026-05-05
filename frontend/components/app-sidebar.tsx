@@ -1,7 +1,8 @@
 "use client"
 
 import { BookOpen, Target, User, LogOut } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useAuth } from "@/lib/auth-context"
 
 const navItems = [
   { icon: BookOpen, label: "Lecciones", href: "/app" },
@@ -9,10 +10,12 @@ const navItems = [
   { icon: User, label: "Mi perfil", href: "/app/profile" },
 ]
 
-const user = { name: "Sofía", email: "sofia@email.com", initials: "S" }
-
 export function AppSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+  const { user: authUser, logout } = useAuth()
+
+  const initials = authUser?.nombre?.charAt(0).toUpperCase() ?? "U"
 
   return (
     <aside
@@ -20,14 +23,14 @@ export function AppSidebar() {
       style={{ backgroundColor: "#1A1A2E" }}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-7">
+      <a href="/" className="flex items-center gap-2 px-6 py-7">
         <span className="font-serif text-2xl font-bold" style={{ color: "#E63946" }}>
           汉字
         </span>
         <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, color: "#ffffff", fontSize: 18, marginLeft: 2 }}>
           hanzi
         </span>
-      </div>
+      </a>
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-1 px-3 pt-2">
@@ -51,20 +54,7 @@ export function AppSidebar() {
             >
               <Icon size={18} />
               <span>{label}</span>
-              {soon && (
-                <span
-                  className="ml-auto rounded-full px-2 py-0.5"
-                  style={{
-                    backgroundColor: "#FFD166",
-                    color: "#1A1A2E",
-                    fontFamily: "'Sora', sans-serif",
-                    fontSize: 10,
-                    fontWeight: 600,
-                  }}
-                >
-                  Próximamente
-                </span>
-              )}
+              
             </a>
           )
         })}
@@ -78,15 +68,15 @@ export function AppSidebar() {
             style={{ backgroundColor: "#E63946" }}
           >
             <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, color: "#fff", fontSize: 15 }}>
-              {user.initials}
+              {initials}
             </span>
           </div>
           <div className="min-w-0 flex-1">
             <p style={{ fontFamily: "'Sora', sans-serif", fontWeight: 600, color: "#ffffff", fontSize: 14 }}>
-              {user.name}
+              {authUser?.nombre ?? "Usuario"}
             </p>
             <p className="truncate" style={{ fontFamily: "'DM Sans', sans-serif", color: "#555", fontSize: 12 }}>
-              {user.email}
+              {authUser?.email ?? ""}
             </p>
           </div>
         </div>
@@ -95,6 +85,7 @@ export function AppSidebar() {
           style={{ fontFamily: "'DM Sans', sans-serif", color: "#555", fontSize: 14 }}
           onMouseEnter={(e) => (e.currentTarget.style.color = "#E63946")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "#555")}
+          onClick={() => { logout(); router.push("/login") }}
         >
           <LogOut size={15} />
           <span>Cerrar sesión</span>

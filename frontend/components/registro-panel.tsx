@@ -32,7 +32,7 @@ export function RegistroPanel() {
           Empieza a aprender chino hoy
         </h2>
         <p className="mt-3 font-sans text-base" style={{ color: "#888" }}>
-          Más de 150 palabras del HSK1 te esperan.
+          
         </p>
 
         <div className="mt-10 flex w-full flex-col gap-3">

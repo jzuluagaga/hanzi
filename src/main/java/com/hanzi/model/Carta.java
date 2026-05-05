@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 @Table(
     name = "carta",
     uniqueConstraints = {
-        @UniqueConstraint(name = "uk_carta_hanzi_leccion", columnNames = {"hanzi", "leccion_id"})
+        @UniqueConstraint(name = "uk_carta_hanzi_leccion", columnNames = {"hanzi", "leccion_id"}),
+        @UniqueConstraint(name = "uk_carta_hanzi_hsk",    columnNames = {"hanzi", "hsk_nivel"})
     },
     indexes = {
-        @Index(name = "idx_carta_hanzi_leccion", columnList = "hanzi, leccion_id")
+        @Index(name = "idx_carta_hanzi_leccion", columnList = "hanzi, leccion_id"),
+        @Index(name = "idx_carta_hanzi_hsk",     columnList = "hanzi, hsk_nivel")
     }
 )
 public class Carta {
@@ -31,8 +33,12 @@ public class Carta {
     @Column(nullable = false)
     private String traduccion;
 
-    @Column(name = "hsk_nivel", nullable = false)
+    @Column(name = "hsk_nivel")
     private Integer hskNivel;
+
+    private String categoria;
+
+    private String tipo;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -40,8 +46,8 @@ public class Carta {
     @Column(name = "audio_url")
     private String audioUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "leccion_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "leccion_id")
     private Leccion leccion;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -52,4 +58,3 @@ public class Carta {
         this.createdAt = LocalDateTime.now();
     }
 }
-

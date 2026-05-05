@@ -7,9 +7,18 @@ export const metadata: Metadata = {
 
 export default async function LessonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ modo?: string; nombre?: string }>
 }) {
   const { id } = await params
-  return <LessonStudy id={id} />
+  const { modo, nombre } = await searchParams
+  return (
+    <LessonStudy
+      id={id}
+      modo={(modo === "inteligente" || modo === "libre") ? modo : "libre"}
+      nombreLeccion={nombre ? decodeURIComponent(nombre) : undefined}
+    />
+  )
 }

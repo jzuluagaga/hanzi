@@ -66,7 +66,6 @@ export function HowItWorks() {
               className="relative rounded-[16px] border border-white/10 bg-white/[0.06] p-8 backdrop-blur-sm"
               style={{
                 animation: `fade-up 0.5s ease ${i * 0.15}s forwards`,
-                opacity: i === 0 ? undefined : 0,
               }}
             >
               {/* Step number */}

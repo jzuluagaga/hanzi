@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Sora, DM_Sans, Noto_Serif_SC } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { Toaster } from 'sonner'
+import { AuthProvider } from '@/lib/auth-context'
 import './globals.css'
 
 const sora = Sora({
@@ -36,8 +38,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${sora.variable} ${dmSans.variable} ${notoSerifSC.variable}`}>
       <body className="font-sans antialiased">
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Analytics />
+        <Toaster />
       </body>
     </html>
   )

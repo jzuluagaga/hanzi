@@ -27,7 +27,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <span className="font-serif text-3xl font-bold text-hanzi-red">汉字</span>
           <span className="font-[var(--font-display)] text-xl font-bold text-hanzi-ink">
             hanzi
