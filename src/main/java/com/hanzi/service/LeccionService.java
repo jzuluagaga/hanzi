@@ -36,7 +36,7 @@ public class LeccionService {
             String healthStatus;
             if (cartasEstudiadas == 0) {
                 healthStatus = "NUEVA";
-            } else if (cartasPendientes == 0) {
+            } else if (cartasEstudiadas == totalCartas && cartasPendientes == 0) {
                 healthStatus = "VERDE";
             } else if (cartaEstadoRepository
                     .existsByUsuarioIdAndCartaLeccionIdAndNextReviewDateLessThan(usuarioId, leccion.getId(), hoy)) {
