@@ -59,6 +59,10 @@ export function requestPasswordReset(email: string): Promise<{ mensaje: string }
   return request<{ mensaje: string }>("/api/auth/request-password-reset", { email })
 }
 
+export function resetPassword(token: string, newPassword: string): Promise<{ mensaje: string }> {
+  return request<{ mensaje: string }>("/api/auth/reset-password", { token, newPassword })
+}
+
 export async function actualizarNombre(nombre: string, token: string): Promise<AuthResponse> {
   const res = await authFetch(`${BASE_URL}/api/me/nombre`, {
     method: "PUT",
