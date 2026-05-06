@@ -253,7 +253,10 @@ function LeccionesAdmin() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (!token) return
+    if (!token) {
+      setLoading(false)
+      return
+    }
     getLecciones(token).then(setLecciones).catch(() => {}).finally(() => setLoading(false))
   }, [token])
 

@@ -61,8 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     localStorage.setItem(TOKEN_KEY, token)
     localStorage.setItem(USER_KEY, JSON.stringify(authUser))
-    document.cookie = "hanzi_token=" + token + "; path=/"
-    document.cookie = "hanzi_role=" + rol + "; path=/"
+    setCookie(TOKEN_KEY, token)
+    setCookie("hanzi_role", rol)
 
     setToken(token)
     setUser(authUser)
@@ -71,8 +71,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function logout() {
     localStorage.removeItem(TOKEN_KEY)
     localStorage.removeItem(USER_KEY)
-    document.cookie = "hanzi_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-    document.cookie = "hanzi_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+    deleteCookie(TOKEN_KEY)
+    deleteCookie("hanzi_role")
     setToken(null)
     setUser(null)
   }
