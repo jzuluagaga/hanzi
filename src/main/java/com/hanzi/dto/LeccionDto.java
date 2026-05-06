@@ -15,6 +15,7 @@ public class LeccionDto {
     private int orden;
     private int totalCartas;
     private int cartasEstudiadas;
+    private int cartasFalladas;
     private int cartasPendientesHoy;
-    private String healthStatus; // "NUEVA" | "VERDE" | "AMARILLO" | "ROJO"
+    private String healthStatus; // "VERDE" | "AMARILLO" | "ROJO"
 }

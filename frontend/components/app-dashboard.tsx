@@ -43,6 +43,7 @@ type MappedLesson = {
 function LessonCard({ lesson }: { lesson: MappedLesson }) {
   const h = HEALTH[lesson.health]
   const isNew = lesson.status === "Nueva"
+  const alDia = lesson.done === lesson.total && lesson.total > 0 && lesson.pendientesHoy === 0
 
   return (
     <div
@@ -66,14 +67,12 @@ function LessonCard({ lesson }: { lesson: MappedLesson }) {
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#888" }}>Sin iniciar</p>
         ) : lesson.pendientesHoy > 0 ? (
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#888" }}>{lesson.pendientesHoy} para repasar</p>
-        ) : (
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#06D6A0" }}>Al día</p>
-        )}
+        ) : null}
 
         <div className="mt-auto flex items-center gap-2">
           {!isNew && (
             <>
-              {(lesson.health === "amarillo" || lesson.health === "rojo") ? (
+              {!alDia ? (
                 <a
                   href={`/app/lesson/${lesson.id}?modo=inteligente&nombre=${encodeURIComponent(lesson.title)}`}
                   className="flex-1 rounded-[12px] py-2 text-center text-sm text-white transition-opacity duration-150 hover:opacity-90"
@@ -126,7 +125,7 @@ export function AppDashboard() {
     status: toStatus(dto),
     done: dto.cartasEstudiadas,
     total: dto.totalCartas,
-    health: toHealthColor(dto.healthStatus),
+    health: dto.cartasEstudiadas === 0 ? "gris" : toHealthColor(dto.healthStatus),
     pendientesHoy: dto.cartasPendientesHoy,
   }))
 

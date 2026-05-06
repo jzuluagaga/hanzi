@@ -32,14 +32,13 @@ public class LeccionService {
             int cartasEstudiadas  = cartaEstadoRepository.countByUsuarioIdAndCartaLeccionId(usuarioId, leccion.getId());
             int cartasPendientes  = cartaEstadoRepository
                     .countByUsuarioIdAndCartaLeccionIdAndNextReviewDateLessThanEqual(usuarioId, leccion.getId(), hoy);
+            int cartasFalladas    = cartaEstadoRepository
+                    .countByUsuarioIdAndCartaLeccionIdAndRecordoFalse(usuarioId, leccion.getId());
 
             String healthStatus;
-            if (cartasEstudiadas == 0) {
-                healthStatus = "NUEVA";
-            } else if (cartasEstudiadas == totalCartas && cartasPendientes == 0) {
+            if (cartasEstudiadas == totalCartas && cartasPendientes == 0) {
                 healthStatus = "VERDE";
-            } else if (cartaEstadoRepository
-                    .existsByUsuarioIdAndCartaLeccionIdAndNextReviewDateLessThan(usuarioId, leccion.getId(), hoy)) {
+            } else if (cartasFalladas > cartasEstudiadas * 0.5) {
                 healthStatus = "ROJO";
             } else {
                 healthStatus = "AMARILLO";
@@ -51,6 +50,7 @@ public class LeccionService {
                     .orden(leccion.getOrden())
                     .totalCartas(totalCartas)
                     .cartasEstudiadas(cartasEstudiadas)
+                    .cartasFalladas(cartasFalladas)
                     .cartasPendientesHoy(cartasPendientes)
                     .healthStatus(healthStatus)
                     .build();

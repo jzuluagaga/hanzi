@@ -63,5 +63,7 @@ public interface CartaEstadoRepository extends JpaRepository<CartaEstado, Long> 
 
     @Query("SELECT COUNT(DISTINCT ce.carta.categoria) FROM CartaEstado ce WHERE ce.usuario.id = :usuarioId AND ce.carta.tipo = 'HSK'")
     long countCategoriasHskIniciadas(@Param("usuarioId") Long usuarioId);
+
+    int countByUsuarioIdAndCartaLeccionIdAndRecordoFalse(Long usuarioId, Long leccionId);
 }
 
