@@ -26,21 +26,21 @@ const notoSerifSC = Noto_Serif_SC({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Hanzi – Aprende chino en español',
+    default: 'Hanzi – Aprende vocabulario fácil',
     template: '%s | Hanzi',
   },
-  description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso para hispanohablantes.',
+  description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso.',
   openGraph: {
     type: 'website',
     url: 'https://hanzi.app',
     siteName: 'Hanzi',
-    title: 'Hanzi – Aprende chino en español',
-    description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso para hispanohablantes.',
+    title: 'Hanzi – Aprende vocabulario fácil',
+    description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso.',
     images: [{ url: 'https://hanzi.app/opengraph-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hanzi – Aprende chino en español',
+    title: 'Hanzi – Aprende vocabulario fácil',
     description: 'Aprende vocabulario chino con repasos activos en español.',
     images: ['https://hanzi.app/opengraph-image.png'],
   },
