@@ -6,6 +6,7 @@ import { AppDashboard } from "@/components/app-dashboard"
 export const metadata: Metadata = {
   title: "Lecciones | Hanzi",
   description: "Tu panel de estudio de chino. Repasa lecciones, sigue tu progreso y prepárate para el HSK1.",
+  robots: { index: false, follow: false },
 }
 
 export default function AppPage() {

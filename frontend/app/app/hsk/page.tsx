@@ -5,6 +5,7 @@ import { HskHome } from "@/components/hsk-home"
 
 export const metadata: Metadata = {
   title: "Vocabulario HSK | Hanzi",
+  robots: { index: false, follow: false },
 }
 
 export default function HskPage() {

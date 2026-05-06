@@ -3,6 +3,7 @@ import { AdminImport } from "@/components/admin-import"
 
 export const metadata: Metadata = {
   title: "Importar vocabulario | Hanzi Admin",
+  robots: { index: false, follow: false },
 }
 
 export default function AdminImportPage() {

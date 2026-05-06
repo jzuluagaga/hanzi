@@ -3,6 +3,7 @@ import { HskNivelView } from "@/components/hsk-nivel-view"
 
 export const metadata: Metadata = {
   title: "Vocabulario HSK | Hanzi",
+  robots: { index: false, follow: false },
 }
 
 export default async function HskNivelPage({

@@ -4,7 +4,7 @@ import { LoginForm } from "@/components/login-form"
 
 export const metadata: Metadata = {
   title: "Iniciar sesión | Hanzi - Aprende chino en español",
-  description: "Inicia sesión en tu cuenta de Hanzi y continúa aprendiendo chino en español.",
+  description: 'Inicia sesión en Hanzi y continúa aprendiendo vocabulario chino con repasos activos. Tu progreso HSK y tus lecciones te esperan.',
 }
 
 export default function LoginPage() {

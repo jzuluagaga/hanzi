@@ -4,7 +4,7 @@ import { RegistroForm } from "@/components/registro-form"
 
 export const metadata: Metadata = {
   title: "Crear cuenta | Hanzi - Aprende chino en español",
-  description: "Regístrate gratis y empieza a aprender el vocabulario del HSK1 con flashcards en español.",
+  description: 'Crea tu cuenta gratis en Hanzi y empieza a aprender chino en español. Flashcards con método de repaso espaciado, adaptado para hispanohablantes.',
 }
 
 export default function RegisterPage() {

@@ -25,9 +25,25 @@ const notoSerifSC = Noto_Serif_SC({
 })
 
 export const metadata: Metadata = {
-  title: 'Hanzi - Aprende chino en español | Vocabulario HSK1',
-  description:
-    'Flashcards con caracteres, pinyin y traducción al español. Active recall real, progreso visible. Pensado para hispanohablantes desde el primer día.',
+  title: {
+    default: 'Hanzi – Aprende chino en español',
+    template: '%s | Hanzi',
+  },
+  description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso para hispanohablantes.',
+  openGraph: {
+    type: 'website',
+    url: 'https://hanzi.app',
+    siteName: 'Hanzi',
+    title: 'Hanzi – Aprende chino en español',
+    description: 'Aprende vocabulario chino con repasos activos en español. Flashcards HSK, exámenes simulados y seguimiento de progreso para hispanohablantes.',
+    images: [{ url: 'https://hanzi.app/opengraph-image.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hanzi – Aprende chino en español',
+    description: 'Aprende vocabulario chino con repasos activos en español.',
+    images: ['https://hanzi.app/opengraph-image.png'],
+  },
 }
 
 export default function RootLayout({

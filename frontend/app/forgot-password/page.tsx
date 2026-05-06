@@ -4,7 +4,7 @@ import { ForgotPasswordForm } from "@/components/forgot-password-form"
 
 export const metadata: Metadata = {
   title: "Recuperar contraseña | Hanzi",
-  description: "Restablece tu contraseña de Hanzi.",
+  description: 'Recupera el acceso a tu cuenta de Hanzi. Recibirás un correo para restablecer tu contraseña en menos de un minuto.',
 }
 
 export default function ForgotPasswordPage() {

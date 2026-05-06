@@ -3,6 +3,7 @@ import { LessonStudy } from "@/components/lesson-study"
 
 export const metadata: Metadata = {
   title: "Estudiar HSK | Hanzi",
+  robots: { index: false, follow: false },
 }
 
 export default async function HskCategoriaStudyPage({
