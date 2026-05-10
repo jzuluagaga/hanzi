@@ -174,7 +174,7 @@ export function DemoInteractivo() {
                       className="select-none leading-none"
                       style={{
                         fontFamily: "'Noto Serif SC', serif",
-                        fontWeight: 800,
+                        fontWeight: 300,
                         fontSize: hanziSize(cards[current].hanzi),
                         color: "#1A1A2E",
                       }}

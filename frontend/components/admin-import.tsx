@@ -448,7 +448,7 @@ export function AdminImport() {
       {/* Header */}
       <div className="mb-10">
         <div className="mb-6 flex items-center gap-2">
-          <span style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 700, fontSize: 22, color: "#E63946" }}>
+          <span style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 300, fontSize: 22, color: "#E63946" }}>
             汉字
           </span>
           <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: 18, color: "#1A1A2E" }}>

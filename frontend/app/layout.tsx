@@ -19,7 +19,7 @@ const dmSans = DM_Sans({
 
 const notoSerifSC = Noto_Serif_SC({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400'],
   variable: '--font-noto-serif-sc',
   display: 'swap',
 })

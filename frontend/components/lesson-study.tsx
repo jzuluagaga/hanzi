@@ -271,7 +271,7 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
                     </span>
                   )}
                   <span
-                    style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 800, fontSize: hanziSize(card.hanzi), color: "#1A1A2E", lineHeight: 1 }}
+                    style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 400, fontSize: hanziSize(card.hanzi), color: "#1A1A2E", lineHeight: 1 }}
                   >
                     {card.hanzi}
                   </span>
