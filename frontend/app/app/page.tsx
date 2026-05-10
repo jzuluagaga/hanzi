@@ -4,7 +4,7 @@ import { AppBottomNav } from "@/components/app-bottom-nav"
 import { AppDashboard } from "@/components/app-dashboard"
 
 export const metadata: Metadata = {
-  title: "Lecciones | Hanzi",
+  title: "Lecciones",
   description: "Tu panel de estudio de chino. Repasa lecciones, sigue tu progreso y prepárate para el HSK1.",
   robots: { index: false, follow: false },
 }
