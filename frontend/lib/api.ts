@@ -146,6 +146,17 @@ export async function getLecciones(token: string): Promise<LeccionDto[]> {
   return res.json()
 }
 
+export async function getProximoRepaso(
+  leccionId: string,
+  token: string
+): Promise<{ proximoRepaso: string | null }> {
+  const res = await authFetch(`${BASE_URL}/api/lecciones/${leccionId}/proximo-repaso`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) throw new Error("No se pudo obtener el próximo repaso")
+  return res.json()
+}
+
 export async function getCartasDeLeccion(leccionId: string, token: string): Promise<CartaDto[]> {
   const res = await authFetch(`${BASE_URL}/api/lecciones/${leccionId}/cartas`, {
     headers: { Authorization: `Bearer ${token}` },
@@ -231,6 +242,65 @@ export async function getHskNivel(nivel: number, token: string): Promise<HskNive
   })
   if (!res.ok) throw new Error("No se pudo cargar el nivel HSK")
   return res.json()
+}
+
+// ── Quiz ─────────────────────────────────────────────────────────────────────
+
+export interface PreguntaDto {
+  cartaId: number
+  tipo: "HANZI_TO_TRANSLATION" | "TRANSLATION_TO_HANZI" | "HANZI_TO_PINYIN"
+  prompt: string
+  correctAnswer: string
+  opciones: string[]
+}
+
+export interface QuizDto {
+  leccionNombre: string
+  totalPreguntas: number
+  preguntas: PreguntaDto[]
+}
+
+export async function getQuiz(leccionId: string, token: string, size = 20): Promise<QuizDto> {
+  const res = await authFetch(`${BASE_URL}/api/lecciones/${leccionId}/quiz?size=${size}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) {
+    let message = "No se pudo cargar el quiz"
+    try {
+      const data = await res.json()
+      if (data.mensaje) message = data.mensaje
+    } catch {}
+    throw new Error(message)
+  }
+  return res.json()
+}
+
+// ── Escritura ────────────────────────────────────────────────────────────────
+
+export async function getCartasEscritura(leccionId: number, token: string): Promise<CartaDto[]> {
+  const res = await authFetch(`${BASE_URL}/api/lecciones/${leccionId}/escritura/cartas`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) throw new Error("No se pudieron cargar las cartas para escritura")
+  return res.json()
+}
+
+export async function registrarEscritura(
+  cartaId: number,
+  payload: {
+    modo: "FACIL" | "DIFICIL"
+    trazosCorrectos: number
+    trazosFallados: number
+    completadoSinErrores: boolean
+  },
+  token: string
+): Promise<void> {
+  const res = await authFetch(`${BASE_URL}/api/cartas/${cartaId}/escritura`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error("No se pudo guardar el resultado de escritura")
 }
 
 // ── Admin ────────────────────────────────────────────────────────────────────

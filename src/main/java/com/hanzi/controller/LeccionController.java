@@ -2,6 +2,7 @@ package com.hanzi.controller;
 
 import com.hanzi.dto.CartaDto;
 import com.hanzi.dto.LeccionDto;
+import com.hanzi.dto.ProximoRepasoDto;
 import com.hanzi.dto.RespuestaRequest;
 import com.hanzi.repository.UsuarioRepository;
 import com.hanzi.service.EstudioService;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,6 +42,13 @@ public class LeccionController {
     public ResponseEntity<List<CartaDto>> getCartasDeLeccion(@PathVariable Long id) {
         Long usuarioId = getUsuarioId();
         return ResponseEntity.ok(leccionService.getCartasDeLeccion(id, usuarioId));
+    }
+
+    @GetMapping("/lecciones/{id}/proximo-repaso")
+    public ResponseEntity<ProximoRepasoDto> getProximoRepaso(@PathVariable Long id) {
+        Long usuarioId = getUsuarioId();
+        LocalDate fecha = leccionService.getProximoRepaso(id, usuarioId);
+        return ResponseEntity.ok(new ProximoRepasoDto(fecha != null ? fecha.toString() : null));
     }
 
     @PostMapping("/cartas/{id}/respuesta")

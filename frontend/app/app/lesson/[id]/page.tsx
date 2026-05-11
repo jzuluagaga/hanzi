@@ -20,6 +20,7 @@ export default async function LessonPage({
       id={id}
       modo={(modo === "inteligente" || modo === "libre") ? modo : "libre"}
       nombreLeccion={nombre ? decodeURIComponent(nombre) : undefined}
+      returnTo={`/app/lecciones/${id}`}
     />
   )
 }

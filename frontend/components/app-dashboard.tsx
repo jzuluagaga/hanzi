@@ -4,24 +4,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/lib/auth-context"
 import { getLecciones, type LeccionDto } from "@/lib/api"
 
-type HealthColor = "verde" | "amarillo" | "rojo" | "gris"
 type Status = "Nueva" | "En progreso" | "Completada"
-
-const HEALTH: Record<HealthColor, { color: string; label: string; dot: string }> = {
-  verde:    { color: "#06D6A0", label: "Bien memorizado",  dot: "#06D6A0" },
-  amarillo: { color: "#FFD166", label: "Repasar pronto",   dot: "#FFD166" },
-  rojo:     { color: "#E63946", label: "Necesita repaso",  dot: "#E63946" },
-  gris:     { color: "#e0e0e0", label: "Sin iniciar",      dot: "#bbbbbb" },
-}
-
-
-
-function toHealthColor(status: string): HealthColor {
-  const map: Record<string, HealthColor> = {
-    NUEVA: "gris", VERDE: "verde", AMARILLO: "amarillo", ROJO: "rojo",
-  }
-  return map[status] ?? "gris"
-}
 
 function toStatus(dto: LeccionDto): Status {
   if (dto.cartasEstudiadas === 0) return "Nueva"
@@ -36,15 +19,10 @@ type MappedLesson = {
   status: Status
   done: number
   total: number
-  health: HealthColor
   pendientesHoy: number
 }
 
 function LessonCard({ lesson }: { lesson: MappedLesson }) {
-  const h = HEALTH[lesson.health]
-  const isNew = lesson.status === "Nueva"
-  const alDia = lesson.done === lesson.total && lesson.total > 0 && lesson.pendientesHoy === 0
-
   return (
     <div
       className="group relative flex flex-col overflow-hidden rounded-[16px] bg-white transition-all duration-200 ease-in-out hover:-translate-y-1"
@@ -52,8 +30,6 @@ function LessonCard({ lesson }: { lesson: MappedLesson }) {
       onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 10px 32px rgba(26,26,46,0.13)")}
       onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(26,26,46,0.07)")}
     >
-      <div className="h-1 w-full" style={{ backgroundColor: h.color }} />
-
       <div className="flex flex-1 flex-col gap-3 p-5">
         <p style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, color: "#E63946", fontSize: 12 }}>
           Lección {lesson.num}
@@ -69,35 +45,13 @@ function LessonCard({ lesson }: { lesson: MappedLesson }) {
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#888" }}>{lesson.pendientesHoy} para repasar</p>
         ) : null}
 
-        <div className="mt-auto flex items-center gap-2">
-          {!isNew && (
-            <>
-              {!alDia ? (
-                <a
-                  href={`/app/lesson/${lesson.id}?modo=inteligente&nombre=${encodeURIComponent(lesson.title)}`}
-                  className="flex-1 rounded-[12px] py-2 text-center text-sm text-white transition-opacity duration-150 hover:opacity-90"
-                  style={{ backgroundColor: "#E63946", fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
-                >
-                  Repasar hoy
-                </a>
-              ) : (
-                <a
-                  href={`/app/lesson/${lesson.id}?modo=inteligente&nombre=${encodeURIComponent(lesson.title)}`}
-                  className="flex-1 rounded-[12px] border py-2 text-center text-sm transition-colors duration-150"
-                  style={{ borderColor: "#06D6A0", color: "#06D6A0", fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
-                >
-                  Al día ✓
-                </a>
-              )}
-            </>
-          )}
-
+        <div className="mt-auto">
           <a
-            href={`/app/lesson/${lesson.id}?modo=libre&nombre=${encodeURIComponent(lesson.title)}`}
-            className={`rounded-[12px] border py-2 text-center text-sm transition-colors duration-150 hover:opacity-80 ${isNew ? "flex-1" : ""} px-3`}
-            style={{ borderColor: "#1A1A2E", color: "#1A1A2E", fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
+            href={`/app/lecciones/${lesson.id}`}
+            className="block w-full rounded-[12px] py-2 text-center text-sm transition-opacity duration-150 hover:opacity-70"
+            style={{ border: "1.5px solid #1A1A2E", color: "#1A1A2E", fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
           >
-            {isNew ? "Empezar" : "Todo"}
+            Estudiar
           </a>
         </div>
       </div>
@@ -125,7 +79,6 @@ export function AppDashboard() {
     status: toStatus(dto),
     done: dto.cartasEstudiadas,
     total: dto.totalCartas,
-    health: dto.cartasEstudiadas === 0 ? "gris" : toHealthColor(dto.healthStatus),
     pendientesHoy: dto.cartasPendientesHoy,
   }))
 
@@ -186,7 +139,7 @@ export function AppDashboard() {
               </p>
               {lessons[0] && (
                 <a
-                  href={`/app/lesson/${lessons[0].id}`}
+                  href={`/app/lecciones/${lessons[0].id}`}
                   className="mt-4 inline-block rounded-[12px] px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-90"
                   style={{ backgroundColor: "#E63946", fontFamily: "'Sora', sans-serif", fontWeight: 600 }}
                 >

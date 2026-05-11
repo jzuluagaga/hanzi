@@ -271,6 +271,7 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
                     </span>
                   )}
                   <span
+                    className="w-full px-6 text-center"
                     style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 400, fontSize: hanziSize(card.hanzi), color: "#1A1A2E", lineHeight: 1 }}
                   >
                     {card.hanzi}
@@ -282,7 +283,7 @@ export function LessonStudy({ id, modo, nombreLeccion, source, returnTo = "/app"
                   className="absolute inset-0 flex flex-col items-center justify-center rounded-[20px]"
                   style={{ backgroundColor: "#ffffff", backfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: "0 8px 40px rgba(0,0,0,0.3)" }}
                 >
-                  <span style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 400, fontSize: 24, color: "#888888", marginBottom: 12 }}>
+                  <span className="w-full text-center" style={{ fontFamily: "'Noto Serif SC', serif", fontWeight: 400, fontSize: 24, color: "#888888", marginBottom: 12 }}>
                     {card.hanzi}
                   </span>
                   <span

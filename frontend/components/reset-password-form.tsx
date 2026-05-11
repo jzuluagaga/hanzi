@@ -112,6 +112,7 @@ export function ResetPasswordForm() {
               <input
                 id="new-password"
                 type="password"
+                suppressHydrationWarning
                 placeholder="Mínimo 8 caracteres"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -133,6 +134,7 @@ export function ResetPasswordForm() {
               <input
                 id="confirm-password"
                 type="password"
+                suppressHydrationWarning
                 placeholder="Repite tu contraseña"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}

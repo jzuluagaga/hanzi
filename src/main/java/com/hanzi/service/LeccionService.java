@@ -2,6 +2,7 @@ package com.hanzi.service;
 
 import com.hanzi.dto.CartaDto;
 import com.hanzi.dto.LeccionDto;
+import com.hanzi.model.CartaEstado;
 import com.hanzi.model.Leccion;
 import com.hanzi.repository.CartaEstadoRepository;
 import com.hanzi.repository.CartaRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +85,15 @@ public class LeccionService {
         cartaEstadoRepository.deleteByCartaLeccionId(id);
         cartaRepository.deleteByLeccionId(id);
         leccionRepository.deleteById(id);
+    }
+
+    public LocalDate getProximoRepaso(Long leccionId, Long usuarioId) {
+        return cartaEstadoRepository.findByUsuarioIdAndCartaLeccionId(usuarioId, leccionId)
+                .stream()
+                .map(CartaEstado::getNextReviewDate)
+                .filter(d -> d != null)
+                .min(Comparator.naturalOrder())
+                .orElse(null);
     }
 
     public List<CartaDto> getCartasDeLeccion(Long leccionId, Long usuarioId) {

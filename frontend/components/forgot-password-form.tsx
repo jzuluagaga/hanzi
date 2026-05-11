@@ -91,6 +91,7 @@ export function ForgotPasswordForm() {
             <input
               id="forgot-email"
               type="email"
+              suppressHydrationWarning
               placeholder="sofia@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

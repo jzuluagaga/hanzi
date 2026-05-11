@@ -79,6 +79,7 @@ export function LoginForm() {
           <input
             id="login-email"
             type="email"
+            suppressHydrationWarning
             placeholder="sofia@ejemplo.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -110,6 +111,7 @@ export function LoginForm() {
             <input
               id="login-pw"
               type={showPw ? "text" : "password"}
+              suppressHydrationWarning
               placeholder="Tu contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
