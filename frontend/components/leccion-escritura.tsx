@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { useRouter } from "next/navigation"
+import { ChevronLeft } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
 import { getCartasEscritura, registrarEscritura, type CartaDto } from "@/lib/api"
 
@@ -53,6 +55,7 @@ function Spinner() {
 
 export function LeccionEscritura({ leccionId, modoInicial }: { leccionId: number; modoInicial: Modo }) {
   const { token } = useAuth()
+  const router = useRouter()
   const modo = modoInicial
 
   const [cartas, setCartas] = useState<CartaDto[]>([])
@@ -337,16 +340,15 @@ export function LeccionEscritura({ leccionId, modoInicial }: { leccionId: number
 
         {/* Header */}
         <div className="flex items-center justify-between">
-          <a
-            href={`/app/lecciones/${leccionId}`}
-            className="inline-flex items-center gap-1.5 transition-opacity hover:opacity-60"
-            style={{ fontFamily: "'Sora', sans-serif", fontWeight: 600, fontSize: 14, color: "#555555" }}
+          <button
+            onClick={() => router.push(`/app/lecciones/${leccionId}`)}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5 transition-colors text-base font-medium"
+            style={{ color: "#555555", fontFamily: "'Sora', sans-serif" }}
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Lección
-          </a>
+            <ChevronLeft className="w-6 h-6" />
+            <span className="sm:hidden">Volver</span>
+            <span className="hidden sm:inline">Volver a la lección</span>
+          </button>
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#555555" }}>
             {cartaIndex + 1} / {cartas.length}
           </span>

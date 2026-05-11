@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { LeccionQuiz } from "@/components/leccion-quiz"
 import { AppSidebar } from "@/components/app-sidebar"
-import { AppBottomNav } from "@/components/app-bottom-nav"
 
 export const metadata: Metadata = {
   title: "Quiz | Hanzi",
@@ -20,7 +19,6 @@ export default async function QuizPage({
       <div className="w-full md:pl-[240px]">
         <LeccionQuiz id={id} />
       </div>
-      <AppBottomNav />
     </div>
   )
 }

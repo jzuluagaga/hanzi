@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { LeccionEscritura } from "@/components/leccion-escritura"
 import { AppSidebar } from "@/components/app-sidebar"
-import { AppBottomNav } from "@/components/app-bottom-nav"
 
 export const metadata: Metadata = {
   title: "Escritura | Hanzi",
@@ -25,7 +24,6 @@ export default async function EscrituraPage({
       <div className="w-full md:pl-[240px]">
         <LeccionEscritura leccionId={Number(id)} modoInicial={modoInicial} />
       </div>
-      <AppBottomNav />
     </div>
   )
 }
