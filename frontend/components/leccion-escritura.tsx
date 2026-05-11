@@ -76,10 +76,10 @@ export function LeccionEscritura({ leccionId, modoInicial }: { leccionId: number
 
   // Carga inicial: fetch cartas + filtrar las que tienen datos locales en hanzi-writer-data
   useEffect(() => {
-    if (!token) {
-      setLoading(false)
-      return
-    }
+    if (!token) return
+    setLoading(true)
+    setSinCartas(false)
+    setCartas([])
     const controller = new AbortController()
     const { signal } = controller
 

@@ -65,10 +65,10 @@ export function LeccionHub({ id }: { id: string }) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!token) {
-      setIsLoading(false)
-      return
-    }
+    if (!token) return
+    setIsLoading(true)
+    setError(null)
+    setLeccion(null)
     Promise.all([
       getLecciones(token),
       getProximoRepaso(id, token).catch(() => ({ proximoRepaso: null })),

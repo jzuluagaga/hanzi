@@ -37,12 +37,22 @@
       "Bash(curl -s -o /tmp/resp.json -w \"HTTP %{http_code}\\\\nContent-Type: %{content_type}\\\\nBytes: %{size_download}\\\\n\" \"http://localhost:3100/api/hanzi-data/%E7%88%B8\")",
       "Read(//tmp/**)",
       "Bash(curl -sI \"http://localhost:3100/api/hanzi-data/%E7%88%B8\")",
-      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:3100/api/hanzi-data/notachar\")"
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:3100/api/hanzi-data/notachar\")",
+      "Bash(mkdir /Users/macpro/Desktop/hanzi/frontend/scripts)",
+      "Bash(node scripts/copy-hanzi-data.mjs)",
+      "Bash(git check-ignore *)",
+      "Bash(PORT=3456 pnpm start)",
+      "Bash(curl -sf -o /dev/null http://localhost:3456/)",
+      "Bash(curl -sI http://localhost:3456/hanzi-data/%E7%88%B8.json)",
+      "Bash(curl -sf http://localhost:3456/hanzi-data/%E7%88%B8.json)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3456/hanzi-data/%E7%88%B8.json)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/api/hanzi-data/%E7%88%B8)"
     ],
     "additionalDirectories": [
       "/Users/macpro/Desktop/hanzi/frontend/app/app/lecciones",
       "/Users/macpro/Desktop/hanzi/frontend/app/app/lecciones/[id]",
-      "/Users/macpro/Desktop/hanzi/frontend/app/api/hanzi-data"
+      "/Users/macpro/Desktop/hanzi/frontend/app/api/hanzi-data",
+      "/Users/macpro/Desktop/hanzi/frontend"
     ]
   }
 }
