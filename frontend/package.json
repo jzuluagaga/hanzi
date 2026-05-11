@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-hanzi-data.mjs",
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/copy-hanzi-data.mjs && next build",
     "start": "next start",
     "lint": "eslint ."
   },

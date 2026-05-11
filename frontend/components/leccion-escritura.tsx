@@ -89,7 +89,7 @@ export function LeccionEscritura({ leccionId, modoInicial }: { leccionId: number
           cartas.map(async (carta) => {
             const checks = await Promise.all(
               [...carta.hanzi].map((char) =>
-                fetch(`/api/hanzi-data/${encodeURIComponent(char)}`, { method: "HEAD", signal })
+                fetch(`/hanzi-data/${encodeURIComponent(char)}.json`, { method: "HEAD", signal })
                   .then((r) => r.ok)
                   .catch(() => false)
               )
@@ -206,7 +206,7 @@ export function LeccionEscritura({ leccionId, modoInicial }: { leccionId: number
       leniency: 1.5,
       showHintAfterMisses: modo === "FACIL" ? 2 : 3,
       charDataLoader: (char, onLoad, onError) => {
-        fetch(`/api/hanzi-data/${encodeURIComponent(char)}`, { signal })
+        fetch(`/hanzi-data/${encodeURIComponent(char)}.json`, { signal })
           .then((res) => {
             if (!res.ok) throw new Error(`No data for ${char}`)
             return res.json()
